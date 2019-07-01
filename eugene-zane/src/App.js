@@ -32,7 +32,7 @@ class App extends React.Component {
         book.title = item.volumeInfo.title
         book.description = item.volumeInfo.description
         book.price=!item.saleInfo.listPrice?'':item.saleInfo.listPrice.amount
-        book.image=!item.volumeInfo.imageLinks.thumbnail?'':item.volumeInfo.imageLinks.thumbnail
+        book.image=!item.volumeInfo.imageLinks?'':item.volumeInfo.imageLinks.thumbnail
         return book
       })
       this.setState({
