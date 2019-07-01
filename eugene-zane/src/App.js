@@ -11,18 +11,41 @@ class App extends React.Component {
     searchTerm:null,
     filter:'All',
     printType:'No Filter',
+    error: null
   }
 
-  fetchRepos=(searchTerm)=>{
-this.setState()
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`)
-    .then(res=>res.json())
-    .then(repos=>this.setState({repos}))
+  // https://www.googleapis.com/books/v1/volumes?q=${this.state.searchTerm
 
+  fetchRepos=()=>{
+    this.setState()
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=apple&Key=AIzaSyDiOsLZg3O58Hd2y8L0bvuuUv-h7Gzszuk`)
+    .then(res=> {
+      if(!res.ok) {
+        throw new Error('Something went wrong, please try again later');
+      }
+      return res.json();
+    })
+    .then(data => {
+      const bookResults = data.items.map(item => {
+        let book = {}
+        book.author = item.volumeInfo.authors
+        book.title = item.volumeInfo.title
+        book.description = item.volumeInfo.description
+        book.price = item.saleInfo
+        return book
+      })
+      this.setState({
+        books: bookResults,
+        error: null
+      })
+      console.log(this.state.books)
+    })
+    .catch(err => this.setState({error: err.message}))
   }
 
-  handleSubmit(){
-    
+  handleSubmit(e) {
+    e.preventDefault()
+
   }
   
   
@@ -33,7 +56,7 @@ this.setState()
       <Header />
       <SearchForm/>
       <ListContainer/>
-      
+      <button onClick={() => this.fetchRepos()}>Click Me</button>
     </div>
   );
 }
