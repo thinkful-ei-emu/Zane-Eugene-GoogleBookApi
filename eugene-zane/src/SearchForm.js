@@ -6,7 +6,7 @@ function SearchForm(props){
     <form onSubmit={(e)=>{e.preventDefault();
     props.handleSubmit()}}>
       <label name='Search'>Search:</label>
-      <input type="text"></input>
+      <input id='searchForm' type="text"></input>
       <button type='submit'>Search</button><br></br>
       <label htmlFor='print-type'>Print Type</label>
       <select>

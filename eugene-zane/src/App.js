@@ -9,16 +9,17 @@ class App extends React.Component {
   state={
     books:[],
     searchTerm:null,
+    error: null,
+    query: {},
     filter:'All',
     printType:'No Filter',
-    error: null
   }
 
   // https://www.googleapis.com/books/v1/volumes?q=${this.state.searchTerm
 
   fetchRepos=()=>{
-    this.setState()
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=apple&Key=AIzaSyDiOsLZg3O58Hd2y8L0bvuuUv-h7Gzszuk`)
+    const BASE_URL='https://www.googleapis.com/books/v1/volumes?'
+    fetch(`${BASE_URL}q=${this.state.query}&Key=AIzaSyDiOsLZg3O58Hd2y8L0bvuuUv-h7Gzszuk`)
     .then(res=> {
       if(!res.ok) {
         throw new Error('Something went wrong, please try again later');
@@ -46,7 +47,7 @@ class App extends React.Component {
 
   handleSubmit=(event)=> {
     console.log('Handle Submit Ran')
-    
+    this.setState({query: document.getElementById('#searchBar').value})
     this.fetchRepos();
 
   }
