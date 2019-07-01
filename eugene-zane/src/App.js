@@ -31,7 +31,8 @@ class App extends React.Component {
         book.author = item.volumeInfo.authors
         book.title = item.volumeInfo.title
         book.description = item.volumeInfo.description
-        book.price = item.saleInfo
+        book.price=!item.saleInfo.listPrice?'':item.saleInfo.listPrice.amount
+        book.image=!item.volumeInfo.imageLinks.thumbnail?'':item.volumeInfo.imageLinks.thumbnail
         return book
       })
       this.setState({
@@ -43,10 +44,13 @@ class App extends React.Component {
     .catch(err => this.setState({error: err.message}))
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit=(event)=> {
+    console.log('Handle Submit Ran')
+    
+    this.fetchRepos();
 
   }
+  
   
   
   render(){
@@ -54,9 +58,8 @@ class App extends React.Component {
   return (
     <div className="App">
       <Header />
-      <SearchForm/>
-      <ListContainer/>
-      <button onClick={() => this.fetchRepos()}>Click Me</button>
+      <SearchForm handleSubmit={this.handleSubmit}/>
+      <ListContainer books={this.state.books}/>
     </div>
   );
 }

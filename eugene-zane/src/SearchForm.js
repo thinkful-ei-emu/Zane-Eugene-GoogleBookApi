@@ -1,8 +1,10 @@
 import React from 'react';
 
-function SearchForm(){
+
+function SearchForm(props){
   return(
-    <form>
+    <form onSubmit={(e)=>{e.preventDefault();
+    props.handleSubmit()}}>
       <label name='Search'>Search:</label>
       <input type="text"></input>
       <button type='submit'>Search</button><br></br>
