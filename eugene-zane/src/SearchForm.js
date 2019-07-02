@@ -4,9 +4,10 @@ import React from 'react';
 function SearchForm(props){
   return(
     <form onSubmit={(e)=>{e.preventDefault();
-    props.handleSubmit()}}>
+    props.handleSubmit()}
+    }>
       <label name='Search'>Search:</label>
-      <input id='searchForm' type="text"></input>
+      <input id='searchForm' type="text" value={props.query} onChange={(e)=>{e.preventDefault();props.handleQuery(e.target.value)}}></input>
       <button type='submit'>Search</button><br></br>
       <label htmlFor='print-type'>Print Type</label>
       <select>

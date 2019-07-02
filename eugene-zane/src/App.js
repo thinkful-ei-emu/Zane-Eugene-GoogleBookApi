@@ -10,7 +10,7 @@ class App extends React.Component {
     books:[],
     searchTerm:null,
     error: null,
-    query: {},
+    query: '',
     filter:'All',
     printType:'No Filter',
   }
@@ -47,10 +47,16 @@ class App extends React.Component {
 
   handleSubmit=(event)=> {
     console.log('Handle Submit Ran')
-    this.setState({query: document.getElementById('#searchBar').value})
     this.fetchRepos();
 
   }
+
+  handleQuery=(query)=>{
+    console.log(query)
+    this.setState({query})
+  }
+
+  
   
   
   
@@ -59,7 +65,7 @@ class App extends React.Component {
   return (
     <div className="App">
       <Header />
-      <SearchForm handleSubmit={this.handleSubmit}/>
+      <SearchForm handleSubmit={this.handleSubmit} handleQuery={this.handleQuery.bind(this)} query={this.state.query}/>
       <ListContainer books={this.state.books}/>
     </div>
   );
